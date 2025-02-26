@@ -8,11 +8,11 @@ class CoffeeModel with _$CoffeeModel {
   // ignore: invalid_annotation_target
   @JsonSerializable(explicitToJson: true)
   const factory CoffeeModel({
-    String? id,
+    int? id,
     String? title,
     String? description,
     String? category,
-    double? pricse,
+    double? price,
     String? imageUrl,
   }) = _CoffeeModel;
 

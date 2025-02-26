@@ -1,4 +1,6 @@
 import 'package:coffee_shop/core/constants/colors.dart';
+import 'package:coffee_shop/data/seeds/test_seed.dart';
+import 'package:coffee_shop/presentation/widgets/coffee_item.dart';
 import 'package:coffee_shop/presentation/widgets/home_top.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,13 +10,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> coffeeTypes = [
-      "Cappuccino",
-      "Latte",
-      "Americano",
-      "Espresso",
-      "Mocha",
-    ];
+    final coffees = TestSeed.generateCoffeeModels();
 
     double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
@@ -53,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(
                       //TODO: burada category_list widget'ı Sized box'ı kapsamalı mı?
                       height: 40,
-                      child: category_list(),
+                      child: CategoryList(),
                     ),
                     Expanded(
                       child: LayoutBuilder(
@@ -67,12 +63,11 @@ class HomeScreen extends StatelessWidget {
                                   mainAxisSpacing: 20,
                                   childAspectRatio: 4 / 7,
                                 ),
-                            itemCount: 5,
+                            itemCount: coffees.length,
                             itemBuilder: (context, index) {
-                              return CofffeeItem(
-                                coffeeTypes: coffeeTypes,
+                              return CoffeeItem(
                                 index: index,
-                              );
+                              ); //TODO: Burada içeriye coffees verilebilir. Performans açısından düşünülebilir.
                             },
                           );
                         },
@@ -96,73 +91,8 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class CofffeeItem extends StatelessWidget {
-  const CofffeeItem({
-    super.key,
-    required this.coffeeTypes,
-    required this.index,
-  });
-
-  final List<String> coffeeTypes; //kalkacak
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Image.asset(
-              "lib/core/assets/images/img_coffee_${index + 1}.png",
-              fit: BoxFit.cover,
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                children: [
-                  Text(
-                    coffeeTypes[index],
-                    style: GoogleFonts.sora(fontSize: 14),
-                  ),
-                  Text("Description"),
-                ],
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "\$4.99",
-                    style: GoogleFonts.sora(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: AppColors.color1,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(Icons.add, color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class category_list extends StatelessWidget {
-  const category_list({super.key});
+class CategoryList extends StatelessWidget {
+  const CategoryList({super.key});
 
   @override
   Widget build(BuildContext context) {

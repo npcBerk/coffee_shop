@@ -21,11 +21,11 @@ CoffeeModel _$CoffeeModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CoffeeModel {
-  String? get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get category => throw _privateConstructorUsedError;
-  double? get pricse => throw _privateConstructorUsedError;
+  double? get price => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
 
   /// Serializes this CoffeeModel to a JSON map.
@@ -46,11 +46,11 @@ abstract class $CoffeeModelCopyWith<$Res> {
   ) = _$CoffeeModelCopyWithImpl<$Res, CoffeeModel>;
   @useResult
   $Res call({
-    String? id,
+    int? id,
     String? title,
     String? description,
     String? category,
-    double? pricse,
+    double? price,
     String? imageUrl,
   });
 }
@@ -74,7 +74,7 @@ class _$CoffeeModelCopyWithImpl<$Res, $Val extends CoffeeModel>
     Object? title = freezed,
     Object? description = freezed,
     Object? category = freezed,
-    Object? pricse = freezed,
+    Object? price = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(
@@ -83,7 +83,7 @@ class _$CoffeeModelCopyWithImpl<$Res, $Val extends CoffeeModel>
                 freezed == id
                     ? _value.id
                     : id // ignore: cast_nullable_to_non_nullable
-                        as String?,
+                        as int?,
             title:
                 freezed == title
                     ? _value.title
@@ -99,10 +99,10 @@ class _$CoffeeModelCopyWithImpl<$Res, $Val extends CoffeeModel>
                     ? _value.category
                     : category // ignore: cast_nullable_to_non_nullable
                         as String?,
-            pricse:
-                freezed == pricse
-                    ? _value.pricse
-                    : pricse // ignore: cast_nullable_to_non_nullable
+            price:
+                freezed == price
+                    ? _value.price
+                    : price // ignore: cast_nullable_to_non_nullable
                         as double?,
             imageUrl:
                 freezed == imageUrl
@@ -125,11 +125,11 @@ abstract class _$$CoffeeModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String? id,
+    int? id,
     String? title,
     String? description,
     String? category,
-    double? pricse,
+    double? price,
     String? imageUrl,
   });
 }
@@ -152,7 +152,7 @@ class __$$CoffeeModelImplCopyWithImpl<$Res>
     Object? title = freezed,
     Object? description = freezed,
     Object? category = freezed,
-    Object? pricse = freezed,
+    Object? price = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(
@@ -161,7 +161,7 @@ class __$$CoffeeModelImplCopyWithImpl<$Res>
             freezed == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
-                    as String?,
+                    as int?,
         title:
             freezed == title
                 ? _value.title
@@ -177,10 +177,10 @@ class __$$CoffeeModelImplCopyWithImpl<$Res>
                 ? _value.category
                 : category // ignore: cast_nullable_to_non_nullable
                     as String?,
-        pricse:
-            freezed == pricse
-                ? _value.pricse
-                : pricse // ignore: cast_nullable_to_non_nullable
+        price:
+            freezed == price
+                ? _value.price
+                : price // ignore: cast_nullable_to_non_nullable
                     as double?,
         imageUrl:
             freezed == imageUrl
@@ -201,7 +201,7 @@ class _$CoffeeModelImpl implements _CoffeeModel {
     this.title,
     this.description,
     this.category,
-    this.pricse,
+    this.price,
     this.imageUrl,
   });
 
@@ -209,7 +209,7 @@ class _$CoffeeModelImpl implements _CoffeeModel {
       _$$CoffeeModelImplFromJson(json);
 
   @override
-  final String? id;
+  final int? id;
   @override
   final String? title;
   @override
@@ -217,13 +217,13 @@ class _$CoffeeModelImpl implements _CoffeeModel {
   @override
   final String? category;
   @override
-  final double? pricse;
+  final double? price;
   @override
   final String? imageUrl;
 
   @override
   String toString() {
-    return 'CoffeeModel(id: $id, title: $title, description: $description, category: $category, pricse: $pricse, imageUrl: $imageUrl)';
+    return 'CoffeeModel(id: $id, title: $title, description: $description, category: $category, price: $price, imageUrl: $imageUrl)';
   }
 
   @override
@@ -237,7 +237,7 @@ class _$CoffeeModelImpl implements _CoffeeModel {
                 other.description == description) &&
             (identical(other.category, category) ||
                 other.category == category) &&
-            (identical(other.pricse, pricse) || other.pricse == pricse) &&
+            (identical(other.price, price) || other.price == price) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl));
   }
@@ -250,7 +250,7 @@ class _$CoffeeModelImpl implements _CoffeeModel {
     title,
     description,
     category,
-    pricse,
+    price,
     imageUrl,
   );
 
@@ -270,11 +270,11 @@ class _$CoffeeModelImpl implements _CoffeeModel {
 
 abstract class _CoffeeModel implements CoffeeModel {
   const factory _CoffeeModel({
-    final String? id,
+    final int? id,
     final String? title,
     final String? description,
     final String? category,
-    final double? pricse,
+    final double? price,
     final String? imageUrl,
   }) = _$CoffeeModelImpl;
 
@@ -282,7 +282,7 @@ abstract class _CoffeeModel implements CoffeeModel {
       _$CoffeeModelImpl.fromJson;
 
   @override
-  String? get id;
+  int? get id;
   @override
   String? get title;
   @override
@@ -290,7 +290,7 @@ abstract class _CoffeeModel implements CoffeeModel {
   @override
   String? get category;
   @override
-  double? get pricse;
+  double? get price;
   @override
   String? get imageUrl;
 

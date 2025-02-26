@@ -8,11 +8,11 @@ part of 'coffee_model.dart';
 
 _$CoffeeModelImpl _$$CoffeeModelImplFromJson(Map<String, dynamic> json) =>
     _$CoffeeModelImpl(
-      id: json['id'] as String?,
+      id: (json['id'] as num?)?.toInt(),
       title: json['title'] as String?,
       description: json['description'] as String?,
       category: json['category'] as String?,
-      pricse: (json['pricse'] as num?)?.toDouble(),
+      price: (json['price'] as num?)?.toDouble(),
       imageUrl: json['imageUrl'] as String?,
     );
 
@@ -22,6 +22,6 @@ Map<String, dynamic> _$$CoffeeModelImplToJson(_$CoffeeModelImpl instance) =>
       'title': instance.title,
       'description': instance.description,
       'category': instance.category,
-      'pricse': instance.pricse,
+      'price': instance.price,
       'imageUrl': instance.imageUrl,
     };
