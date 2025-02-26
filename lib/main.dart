@@ -1,6 +1,6 @@
 import 'package:coffee_shop/presentation/screens/home_screen.dart';
-import 'package:coffee_shop/presentation/screens/splash_screen.dart';
-import 'package:coffee_shop/presentation/screens/testing_screen.dart';
+//import 'package:coffee_shop/presentation/screens/splash_screen.dart';
+//import 'package:coffee_shop/presentation/screens/testing_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
