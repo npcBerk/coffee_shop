@@ -1,18 +1,14 @@
 import 'package:coffee_shop/core/constants/colors.dart';
-import 'package:coffee_shop/data/seeds/test_seed.dart';
+import 'package:coffee_shop/data/models/coffee_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CoffeeItem extends StatelessWidget {
-  const CoffeeItem({super.key, required this.index});
-
-  final int index;
+  const CoffeeItem({super.key, required this.coffee});
+  final CoffeeModel coffee;
 
   @override
   Widget build(BuildContext context) {
-    final coffeeModels = TestSeed.generateCoffeeModels();
-    final coffee = coffeeModels[index];
-
     return Column(
       children: [
         ClipRRect(

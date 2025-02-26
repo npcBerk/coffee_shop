@@ -63,10 +63,22 @@ class HomeScreen extends StatelessWidget {
                                   mainAxisSpacing: 20,
                                   childAspectRatio: 4 / 7,
                                 ),
-                            itemCount: coffees.length,
+                            itemCount:
+                                coffees
+                                    .where(
+                                      (element) =>
+                                          element.category == "Espresso",
+                                    )
+                                    .length,
                             itemBuilder: (context, index) {
                               return CoffeeItem(
-                                index: index,
+                                coffee:
+                                    coffees
+                                        .where(
+                                          (element) =>
+                                              element.category == "Espresso",
+                                        )
+                                        .toList()[index],
                               ); //TODO: Burada içeriye coffees verilebilir. Performans açısından düşünülebilir.
                             },
                           );
@@ -90,6 +102,62 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+/*
+class CategoryList extends StatelessWidget {
+  final String selectedCategory;
+  final Function(String) onCategorySelected;
+
+  const CategoryList({
+    super.key,
+    required this.selectedCategory,
+    required this.onCategorySelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final categories = ["All", "Espresso", "Latte", "Cappuccino", "Mocha"];
+
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: categories.length,
+      itemBuilder: (context, index) {
+        final category = categories[index];
+        final isSelected = category == selectedCategory;
+
+        return GestureDetector(
+          onTap: () => onCategorySelected(category),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Center(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: isSelected ? AppColors.color2 : AppColors.color1,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 4.0,
+                  ),
+                  child: Text(
+                    category,
+                    style: GoogleFonts.sora(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+*/
 
 class CategoryList extends StatelessWidget {
   const CategoryList({super.key});
