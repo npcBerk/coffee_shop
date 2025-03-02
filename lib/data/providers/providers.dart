@@ -13,3 +13,5 @@ class CategoryProvider with ChangeNotifier {//Burası material.dart'tan geliyor
 }
 //burası flutter_riverpod.dart'tan geliyor
 final categoryProvider = ChangeNotifierProvider<CategoryProvider>((ref) => CategoryProvider());
+
+final selectedIndexProvider = StateProvider<int>((ref) => 0);

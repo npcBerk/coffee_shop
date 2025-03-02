@@ -9,32 +9,33 @@ class CoffeeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Image.asset(coffee.imageUrl ?? '', fit: BoxFit.cover),
-        ),
-        Column(
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(8, 8, 8, 12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  coffee.title ?? '',
-                  style: GoogleFonts.sora(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                //TODO: Description kısmında uzun bir description girili ise taşma oluyor, ya max length verilecek ya da esnek yapılacak. Fikrimce max lenght iyi gibi.
-                Text(
-                  coffee.description ?? '',
-                  style: GoogleFonts.sora(fontSize: 12, color: Colors.grey),
-                ),
-              ],
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(coffee.imageUrl ?? '', fit: BoxFit.cover),
             ),
-            SizedBox(height: 10),
+            Text(
+              coffee.title ?? '',
+              style: GoogleFonts.sora(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            //TODO: Description kısmında uzun bir description girili ise taşma oluyor, ya max length verilecek ya da esnek yapılacak. Fikrimce max lenght iyi gibi.
+            Text(
+              coffee.description ?? '',
+              style: GoogleFonts.sora(fontSize: 12, color: Colors.grey),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -59,7 +60,7 @@ class CoffeeItem extends StatelessWidget {
             ),
           ],
         ),
-      ],
+      ),
     );
   }
 }
