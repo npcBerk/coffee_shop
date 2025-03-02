@@ -1,8 +1,10 @@
 import 'package:coffee_shop/core/constants/colors.dart';
+import 'package:coffee_shop/data/providers/category_provider.dart';
 import 'package:coffee_shop/data/seeds/test_seed.dart';
 import 'package:coffee_shop/presentation/widgets/coffee_item.dart';
 import 'package:coffee_shop/presentation/widgets/home_top.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -52,8 +54,19 @@ class HomeScreen extends StatelessWidget {
                       child: CategoryList(),
                     ),
                     Expanded(
-                      child: LayoutBuilder(
-                        builder: (context, constraints) {
+                      child: Consumer(
+                        builder: (context, ref, child) {
+                          final selectedCategory =
+                              ref.watch(categoryProvider).selectedCategory;
+                          final filteredCoffees =
+                              coffees
+                                  .where(
+                                    (element) =>
+                                        element.category == selectedCategory ||
+                                        selectedCategory == "All",
+                                  )
+                                  .toList();
+
                           return GridView.builder(
                             shrinkWrap: true,
                             gridDelegate:
@@ -63,22 +76,23 @@ class HomeScreen extends StatelessWidget {
                                   mainAxisSpacing: 20,
                                   childAspectRatio: 4 / 7,
                                 ),
-                            itemCount:
-                                coffees
+                            itemCount: filteredCoffees.length,
+                               /*  coffees
                                     .where(
                                       (element) =>
                                           element.category == "Espresso",
                                     )
-                                    .length,
+                                    .length, */
                             itemBuilder: (context, index) {
                               return CoffeeItem(
-                                coffee:
+                                coffee: filteredCoffees[index],
+                               /*  coffee:
                                     coffees
                                         .where(
                                           (element) =>
                                               element.category == "Espresso",
                                         )
-                                        .toList()[index],
+                                        .toList()[index], */
                               ); //TODO: Burada içeriye coffees verilebilir. Performans açısından düşünülebilir.
                             },
                           );
@@ -103,20 +117,21 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-/*
-class CategoryList extends StatelessWidget {
-  final String selectedCategory;
-  final Function(String) onCategorySelected;
-
-  const CategoryList({
-    super.key,
-    required this.selectedCategory,
-    required this.onCategorySelected,
-  });
+class CategoryList extends ConsumerWidget {
+  const CategoryList({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final categories = ["All", "Espresso", "Latte", "Cappuccino", "Mocha"];
+  Widget build(BuildContext context, WidgetRef ref) {
+    final categories = [
+      "All",
+      "Espresso",
+      "Latte",
+      "Cappuccino",
+      "Mocha",
+      "Specialty",
+      "Traditional",
+    ];
+    final selectedCategory = ref.watch(categoryProvider).selectedCategory;
 
     return ListView.builder(
       scrollDirection: Axis.horizontal,
@@ -126,7 +141,7 @@ class CategoryList extends StatelessWidget {
         final isSelected = category == selectedCategory;
 
         return GestureDetector(
-          onTap: () => onCategorySelected(category),
+          onTap: () => ref.read(categoryProvider).selectCategory(category),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Center(
@@ -157,9 +172,8 @@ class CategoryList extends StatelessWidget {
     );
   }
 }
-*/
 
-class CategoryList extends StatelessWidget {
+/* class CategoryList extends StatelessWidget {
   const CategoryList({super.key});
 
   @override
@@ -196,4 +210,4 @@ class CategoryList extends StatelessWidget {
       },
     );
   }
-}
+} */
