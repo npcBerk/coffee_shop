@@ -20,9 +20,40 @@ class CoffeeItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.asset(coffee.imageUrl ?? '', fit: BoxFit.cover),
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(coffee.imageUrl ?? '', fit: BoxFit.cover),
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.black12,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(25),
+                        topRight: Radius.circular(12),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.star, color: Colors.yellow, size: 16),
+                        SizedBox(width: 4),
+                        Text(
+                          coffee.rating?.toStringAsFixed(1) ?? '0.0',
+                          style: GoogleFonts.sora(
+                            fontSize: 8,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
             Text(
               coffee.title ?? '',
@@ -31,7 +62,6 @@ class CoffeeItem extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            //TODO: Description kısmında uzun bir description girili ise taşma oluyor, ya max length verilecek ya da esnek yapılacak. Fikrimce max lenght iyi gibi.
             Text(
               coffee.description ?? '',
               style: GoogleFonts.sora(fontSize: 12, color: Colors.grey),
@@ -64,83 +94,3 @@ class CoffeeItem extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* import 'package:coffee_shop/core/constants/colors.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-class CofffeeItem extends StatelessWidget {
-  const CofffeeItem({
-    super.key,
-    required this.coffeeTypes,
-    required this.index,
-  });
-
-  final List<String> coffeeTypes; //kalkacak
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Image.asset(
-            "lib/core/assets/images/img_coffee_${index + 1}.png",
-            fit: BoxFit.cover,
-          ),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              children: [
-                Text(coffeeTypes[index], style: GoogleFonts.sora(fontSize: 14)),
-                Text("Description"),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "\$4.99",
-                  style: GoogleFonts.sora(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: AppColors.color1,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(Icons.add, color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
- */

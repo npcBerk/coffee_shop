@@ -11,8 +11,14 @@ _$CoffeeModelImpl _$$CoffeeModelImplFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num?)?.toInt(),
       title: json['title'] as String?,
       description: json['description'] as String?,
-      category: json['category'] as String?,
+      category:
+          json['category'] == null
+              ? null
+              : CategoryModel.fromJson(
+                json['category'] as Map<String, dynamic>,
+              ),
       price: (json['price'] as num?)?.toDouble(),
+      rating: (json['rating'] as num?)?.toDouble(),
       imageUrl: json['imageUrl'] as String?,
     );
 
@@ -21,7 +27,8 @@ Map<String, dynamic> _$$CoffeeModelImplToJson(_$CoffeeModelImpl instance) =>
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
-      'category': instance.category,
+      'category': instance.category?.toJson(),
       'price': instance.price,
+      'rating': instance.rating,
       'imageUrl': instance.imageUrl,
     };

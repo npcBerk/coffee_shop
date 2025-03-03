@@ -62,7 +62,8 @@ class HomeScreen extends StatelessWidget {
                               coffees
                                   .where(
                                     (element) =>
-                                        element.category == selectedCategory ||
+                                        element.category?.title ==
+                                            selectedCategory ||
                                         selectedCategory == "All",
                                   )
                                   .toList();
@@ -129,7 +130,10 @@ class BottomNavigationBarWidget extends ConsumerWidget {
         _navItem("lib/core/assets/icons/ico_home.png", selectedIndex == 0),
         _navItem("lib/core/assets/icons/ico_favorites.png", selectedIndex == 1),
         _navItem("lib/core/assets/icons/ico_bag.png", selectedIndex == 2),
-        _navItem("lib/core/assets/icons/ico_notification.png", selectedIndex == 3),
+        _navItem(
+          "lib/core/assets/icons/ico_notification.png",
+          selectedIndex == 3,
+        ),
       ],
     );
   }

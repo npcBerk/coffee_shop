@@ -24,8 +24,9 @@ mixin _$CoffeeModel {
   int? get id => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  String? get category => throw _privateConstructorUsedError;
+  CategoryModel? get category => throw _privateConstructorUsedError;
   double? get price => throw _privateConstructorUsedError;
+  double? get rating => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
 
   /// Serializes this CoffeeModel to a JSON map.
@@ -49,10 +50,13 @@ abstract class $CoffeeModelCopyWith<$Res> {
     int? id,
     String? title,
     String? description,
-    String? category,
+    CategoryModel? category,
     double? price,
+    double? rating,
     String? imageUrl,
   });
+
+  $CategoryModelCopyWith<$Res>? get category;
 }
 
 /// @nodoc
@@ -75,6 +79,7 @@ class _$CoffeeModelCopyWithImpl<$Res, $Val extends CoffeeModel>
     Object? description = freezed,
     Object? category = freezed,
     Object? price = freezed,
+    Object? rating = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(
@@ -98,11 +103,16 @@ class _$CoffeeModelCopyWithImpl<$Res, $Val extends CoffeeModel>
                 freezed == category
                     ? _value.category
                     : category // ignore: cast_nullable_to_non_nullable
-                        as String?,
+                        as CategoryModel?,
             price:
                 freezed == price
                     ? _value.price
                     : price // ignore: cast_nullable_to_non_nullable
+                        as double?,
+            rating:
+                freezed == rating
+                    ? _value.rating
+                    : rating // ignore: cast_nullable_to_non_nullable
                         as double?,
             imageUrl:
                 freezed == imageUrl
@@ -112,6 +122,20 @@ class _$CoffeeModelCopyWithImpl<$Res, $Val extends CoffeeModel>
           )
           as $Val,
     );
+  }
+
+  /// Create a copy of CoffeeModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CategoryModelCopyWith<$Res>? get category {
+    if (_value.category == null) {
+      return null;
+    }
+
+    return $CategoryModelCopyWith<$Res>(_value.category!, (value) {
+      return _then(_value.copyWith(category: value) as $Val);
+    });
   }
 }
 
@@ -128,10 +152,14 @@ abstract class _$$CoffeeModelImplCopyWith<$Res>
     int? id,
     String? title,
     String? description,
-    String? category,
+    CategoryModel? category,
     double? price,
+    double? rating,
     String? imageUrl,
   });
+
+  @override
+  $CategoryModelCopyWith<$Res>? get category;
 }
 
 /// @nodoc
@@ -153,6 +181,7 @@ class __$$CoffeeModelImplCopyWithImpl<$Res>
     Object? description = freezed,
     Object? category = freezed,
     Object? price = freezed,
+    Object? rating = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(
@@ -176,11 +205,16 @@ class __$$CoffeeModelImplCopyWithImpl<$Res>
             freezed == category
                 ? _value.category
                 : category // ignore: cast_nullable_to_non_nullable
-                    as String?,
+                    as CategoryModel?,
         price:
             freezed == price
                 ? _value.price
                 : price // ignore: cast_nullable_to_non_nullable
+                    as double?,
+        rating:
+            freezed == rating
+                ? _value.rating
+                : rating // ignore: cast_nullable_to_non_nullable
                     as double?,
         imageUrl:
             freezed == imageUrl
@@ -202,6 +236,7 @@ class _$CoffeeModelImpl implements _CoffeeModel {
     this.description,
     this.category,
     this.price,
+    this.rating,
     this.imageUrl,
   });
 
@@ -215,15 +250,17 @@ class _$CoffeeModelImpl implements _CoffeeModel {
   @override
   final String? description;
   @override
-  final String? category;
+  final CategoryModel? category;
   @override
   final double? price;
+  @override
+  final double? rating;
   @override
   final String? imageUrl;
 
   @override
   String toString() {
-    return 'CoffeeModel(id: $id, title: $title, description: $description, category: $category, price: $price, imageUrl: $imageUrl)';
+    return 'CoffeeModel(id: $id, title: $title, description: $description, category: $category, price: $price, rating: $rating, imageUrl: $imageUrl)';
   }
 
   @override
@@ -238,6 +275,7 @@ class _$CoffeeModelImpl implements _CoffeeModel {
             (identical(other.category, category) ||
                 other.category == category) &&
             (identical(other.price, price) || other.price == price) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl));
   }
@@ -251,6 +289,7 @@ class _$CoffeeModelImpl implements _CoffeeModel {
     description,
     category,
     price,
+    rating,
     imageUrl,
   );
 
@@ -273,8 +312,9 @@ abstract class _CoffeeModel implements CoffeeModel {
     final int? id,
     final String? title,
     final String? description,
-    final String? category,
+    final CategoryModel? category,
     final double? price,
+    final double? rating,
     final String? imageUrl,
   }) = _$CoffeeModelImpl;
 
@@ -288,9 +328,11 @@ abstract class _CoffeeModel implements CoffeeModel {
   @override
   String? get description;
   @override
-  String? get category;
+  CategoryModel? get category;
   @override
   double? get price;
+  @override
+  double? get rating;
   @override
   String? get imageUrl;
 

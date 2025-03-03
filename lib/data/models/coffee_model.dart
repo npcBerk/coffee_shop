@@ -1,3 +1,4 @@
+import 'package:coffee_shop/data/models/category_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'coffee_model.freezed.dart';
@@ -11,8 +12,9 @@ class CoffeeModel with _$CoffeeModel {
     int? id,
     String? title,
     String? description,
-    String? category,
+    CategoryModel? category,
     double? price,
+    double? rating,
     String? imageUrl,
   }) = _CoffeeModel;
 
