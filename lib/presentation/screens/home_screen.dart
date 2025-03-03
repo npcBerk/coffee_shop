@@ -1,6 +1,7 @@
 import 'package:coffee_shop/core/constants/colors.dart';
+import 'package:coffee_shop/data/providers/category_provider.dart';
+import 'package:coffee_shop/data/providers/coffee_provider.dart';
 import 'package:coffee_shop/data/providers/providers.dart';
-import 'package:coffee_shop/data/seeds/test_seed.dart';
 import 'package:coffee_shop/presentation/widgets/coffee_item.dart';
 import 'package:coffee_shop/presentation/widgets/home_top.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final coffees = TestSeed.generateCoffeeModels();
-
     double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -53,53 +52,7 @@ class HomeScreen extends StatelessWidget {
                       height: 50,
                       child: CategoryList(),
                     ),
-                    Expanded(
-                      child: Consumer(
-                        builder: (context, ref, child) {
-                          final selectedCategory =
-                              ref.watch(categoryProvider).selectedCategory;
-                          final filteredCoffees =
-                              coffees
-                                  .where(
-                                    (element) =>
-                                        element.category?.title ==
-                                            selectedCategory ||
-                                        selectedCategory == "All",
-                                  )
-                                  .toList();
-
-                          return GridView.builder(
-                            shrinkWrap: true,
-                            gridDelegate:
-                                SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 200,
-                                  crossAxisSpacing: 30,
-                                  mainAxisSpacing: 20,
-                                  childAspectRatio: 0.6,
-                                ),
-                            itemCount: filteredCoffees.length,
-                            /*  coffees
-                                    .where(
-                                      (element) =>
-                                          element.category == "Espresso",
-                                    )
-                                    .length, */
-                            itemBuilder: (context, index) {
-                              return CoffeeItem(
-                                coffee: filteredCoffees[index],
-                                /*  coffee:
-                                    coffees
-                                        .where(
-                                          (element) =>
-                                              element.category == "Espresso",
-                                        )
-                                        .toList()[index], */
-                              ); //TODO: Burada içeriye coffees verilebilir. Performans açısından düşünülebilir.
-                            },
-                          );
-                        },
-                      ),
-                    ),
+                    Expanded(child: CoffeeGrid()),
                   ],
                 ),
               ),
@@ -108,6 +61,57 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBarWidget(),
+    );
+  }
+}
+
+class CoffeeGrid extends ConsumerWidget {
+  const CoffeeGrid({super.key});
+
+  //final List<CoffeeModel> coffees; //TODO silinecek
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final coffees = ref.watch(coffeeProvider);
+    final coffeeNotifier = ref.read(coffeeProvider.notifier);
+    final selectedCategory = ref.watch(categoryProvider);
+    /* final selectedCategory = ref.watch(categoryProvider).selectedCategory;
+    */
+    final filteredCoffees =
+        selectedCategory == "All"
+            ? coffees
+            : coffees
+                .where((coffee) => coffee.category?.title == selectedCategory)
+                .toList();
+
+    return NotificationListener<ScrollNotification>(
+      onNotification: (scrollNotification) {
+        if (scrollNotification.metrics.pixels ==
+            scrollNotification.metrics.maxScrollExtent /* -100 */ ) {
+          coffeeNotifier.loadMoreItems();
+        }
+        return true;
+      },
+
+      child: GridView.builder(
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 200,
+          crossAxisSpacing: 30,
+          mainAxisSpacing: 20,
+          childAspectRatio: 0.6,
+        ),
+        itemCount: filteredCoffees.length, //TODO: +1
+        itemBuilder: (context, index) {
+          if (index < filteredCoffees.length) {
+            return CoffeeItem(coffee: filteredCoffees[index]);
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            ); //TODO: Burası çalışmıyor.
+          }
+        },
+      ),
     );
   }
 }
@@ -174,7 +178,9 @@ class CategoryList extends ConsumerWidget {
       "Specialty",
       "Traditional",
     ];
-    final selectedCategory = ref.watch(categoryProvider).selectedCategory;
+    final selectedCategory = ref.watch(
+      categoryProvider,
+    ); //TODO: ".selectedCategory"yi silince ne olacak
 
     return ListView.builder(
       scrollDirection: Axis.horizontal,
@@ -184,7 +190,11 @@ class CategoryList extends ConsumerWidget {
         final isSelected = category == selectedCategory;
 
         return GestureDetector(
-          onTap: () => ref.read(categoryProvider).selectCategory(category),
+          onTap: () {
+            ref.read(categoryProvider.notifier).selectCategory(category);
+            ref.read(coffeeProvider.notifier).resetItems(); //TODO: İncelenecek
+          },
+
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Center(
