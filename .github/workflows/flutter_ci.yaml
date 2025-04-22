@@ -1,0 +1,34 @@
+name: Flutter CI - dev push kontrolü
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  analyze_and_test:
+    name: Flutter Analyze & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.29.3"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze code
+        run: flutter analyze
+
+      - name: Run tests
+        run: |
+          if [ -d "test" ] && [ "$(ls -A test)" ]; then
+            flutter test
+          else
+            echo "⚠️ Uyarı: 'test/' klasörü boş, test yapılmadı."
+          fi
