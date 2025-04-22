@@ -8,13 +8,15 @@ void main() {
 }
 
 class GridExample extends StatelessWidget {
+  const GridExample({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Adaptive GridView')),
       body: Column(
         children: [
-          Container(child: Image.asset("lib/core/assets/images/img_coffee_5.png")),
+          Image.asset("lib/core/assets/images/img_coffee_5.png"),
           Center(
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
